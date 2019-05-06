@@ -1,6 +1,7 @@
 "use strict";
 
 var api = require("servicenow-lite");
+var prettyJson = require("prettyjson");
 
 
 module.exports = function (robot) {
@@ -19,8 +20,8 @@ module.exports = function (robot) {
             }
             else {
                 response.send("Your search results");
-                var obj = JSON.stringify(result);
-                response.send(obj);
+                //console.log(prettyJson.render(result));
+                response.send(prettyJson.render(result));
             }
         });
     });

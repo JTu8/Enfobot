@@ -16,7 +16,7 @@ module.exports = function(robot) {
         console.log("Ticket number = " + ticketNumber);
         console.log("Prefix = " + prefix);
         console.log("Param = " + param);
-        // Gets sys_id 
+        // Gets sys_id of ticket
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
                 response.send("Ticket number was not found, please try again");
