@@ -6,23 +6,42 @@ var prettyJson = require("prettyjson");
 
 module.exports = function (robot) {
     robot.commands.push(
-        "Enfobot search <query> - Searches records"
+        "Enfobot search <task number> - Prints info about task"
     );
 
-    // Searches recrods by query
+    // Searches recrods by task number
     robot.respond(/search (.*)/i, function (response) {
-        var searchQuery = response.match[1];
-
-        api.search(searchQuery, function(err, result) {
+        var taskNumber = response.match[1];
+        var searchResult;
+        /*
+        api.search(taskNumber, function(err, result) {
             if (err) {
                 response.send("Records were not found");
                 console.error(err);
             }
             else {
                 response.send("Your search results");
-                //console.log(prettyJson.render(result));
-                response.send(prettyJson.render(result));
+                console.log(prettyJson.render(result));
+                
             }
         });
+        */
+        
+        api.getRecordById(taskNumber, function(err, result) {
+            if (err) {
+                response.send("Task not found, please try again");
+                console.error(err);
+            }
+            else {
+                searchResult = {
+                    'number': result.number,
+                    'short_description': result.short_description,
+                    'assigned_to': result.assigned_to
+                };
+                console.log(JSON.stringify(searchResult));
+                response.send(prettyJson.render(searchResult));
+            }
+        });
+        
     });
 };

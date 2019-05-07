@@ -16,7 +16,7 @@ module.exports = function (robot) {
         // Gets sys_id of ticket 
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
-                response.send("Ticket number was not found, please try again");
+                response.send("Task not found, please try again");
                 console.error(err);
                 return;
             }
@@ -26,13 +26,13 @@ module.exports = function (robot) {
                     'work_notes': comment
                 };
                 console.log("Params= " + JSON.stringify(updateParams));
-
+                // Adds comment to ticket
                 api.updateTicket(updateParams, prefix, function(err, result) {
                     if (err) {
                         response.send("Commenting failed, please try again");
                     }
                     else {
-                        response.send("Comments added to record " + ticketNumber);
+                        response.send("Comments added to task " + ticketNumber);
                         console.log(JSON.stringify(result));
                     }
                 });

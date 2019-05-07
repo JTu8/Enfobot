@@ -19,7 +19,7 @@ module.exports = function(robot) {
         // Gets sys_id of ticket
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
-                response.send("Ticket number was not found, please try again");
+                response.send("Task not found, please try again");
                 console.error(err);
             }
             else {
@@ -37,8 +37,8 @@ module.exports = function(robot) {
                         return;
                     }
                     else {
-                        response.send("Ticket updated");
-                        response.send(JSON.stringify(result));
+                        response.send("Ticket number "+ ticketNumber +" updated");
+                        console.log(JSON.stringify(result));
                     }
             });
             }

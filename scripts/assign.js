@@ -1,6 +1,7 @@
 "use strict";
 
 var api = require("servicenow-lite");
+var underscore = require("underscore");
 
 module.exports = function (robot) {
      robot.commands.push(
@@ -19,7 +20,7 @@ module.exports = function (robot) {
         // Gets sys_id of ticket 
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
-                response.send("Ticket number was not found, please try again");
+                response.send("Task not found please try again");
                 console.error(err);
                 return;
             }
@@ -38,8 +39,8 @@ module.exports = function (robot) {
                         return;
                     }
                     else {
-                        response.send("Ticket assigned to " + person);
-                        response.send(JSON.stringify(result));
+                        response.send("Task " + ticketNumber +  " assigned to " + person);
+                        console.log(JSON.stringify(result));
                     }
                 });
             }

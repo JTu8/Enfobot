@@ -1,6 +1,7 @@
 "use strict";
 
 var api = require("servicenow-lite");
+var prettyjson = require("prettyjson");
 
 module.exports = function(robot) {
     robot.commands.push(
@@ -23,7 +24,8 @@ module.exports = function(robot) {
             }
             else {
                 response.send("New ticket created");
-                response.send(JSON.stringify(result));
+                response.send(prettyjson.render(result));
+                console.log(JSON.stringify(result));
             }
         });
     });
