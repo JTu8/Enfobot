@@ -5,11 +5,11 @@ var underscore = require("underscore");
 // Add user to Enfobots memory
 module.exports = function(robot) {
     robot.commands.push(
-        "Enfobot save me <User> - Saves username to memory"
+        "Enfobot save user <User> - Saves username to memory"
     );
 
     robot.commands.push(
-        "Enfobot users - Gives you saved users"
+        "Enfobot saved users - Gives you saved users"
     );
     
     robot.commands.push(
@@ -21,30 +21,45 @@ module.exports = function(robot) {
     );
 
     // Saves user to memory
-    robot.respond(/save me (.*)/i, function (response) {
-        var savedUser = robot.brain.knownUsers || {};
-        var hipchatName = response.message.user.name;
-        var serviceNowUser = response.match[1];
+    robot.respond(/save user (.*)/i, function (response) {
+        var user = response.match[1];
 
-        savedUser[hipchatName] = serviceNowUser;
-        robot.brain.knownUsers = savedUser;
-
-        console.log("Saved user = " + serviceNowUser);
-        response.send("User has been saved");
+        robot.brain.set('user', user);
+        response.send("User " + user + " has been saved");
     });
 
     // Checks if there are any users
-    robot.respond(/users/i, function(response) {
-        var users = robot.brain.knownUsers || {};
-        var hipChatNames = underscore.keys(users);
-        hipChatNames.sort();
+    robot.respond(/saved users/i, function(response) {
+        var users = robot.brain.get('user') || {};
 
-        var rows = hipChatNames.map(function(hipchatName) {
-            return hipchatName + " -- " + users[hipchatName];
-        });
-
-        response.send(rows);
+        if (robot.brain.get('user') == null) {
+            response.send("No saved users");
+        }
+        else {
+            response.send("Saved users: " + users);
+        }
     });
 
+    // Adds task to memory
+    robot.respond(/save task (.*)/i, function(response) {
+        var task = response.match[1];
+
+        robot.brain.set('task', task);
+        response.send("Task number " + task + " has been saved");
+    });
+
+    // Get saved task from memory
+    robot.respond(/saved tasks/i, function(response) {
+        var savedTask = robot.brain.get('task') || {};
+        
+        if (robot.brain.get('task') == null) {
+            response.send("No saved tasks");
+        }
+        else {
+            response.send("Saved tasks: " + savedTask);
+        }
+        
+        
+    });
     
 };

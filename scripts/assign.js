@@ -14,8 +14,12 @@ module.exports = function (robot) {
         var person = response.match[3];
         var updateParams;
 
+        var pref = ticketNumber.substring(0, 3);
+
+        console.log("Pref= " + pref);
+
         console.log("Ticket number= " + ticketNumber);
-        console.log("Prefix= " + prefix);
+        console.log("Prefix= " + prefix);   
         console.log("Person= " + person);
         // Gets sys_id of ticket 
         api.getRecordById(ticketNumber, function(err, result) {

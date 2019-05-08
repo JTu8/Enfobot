@@ -33,11 +33,13 @@ module.exports = function (robot) {
                 console.error(err);
             }
             else {
+                
                 searchResult = {
                     'number': result.number,
                     'short_description': result.short_description,
                     'assigned_to': result.assigned_to
                 };
+
                 console.log(JSON.stringify(searchResult));
                 response.send(prettyJson.render(searchResult));
             }

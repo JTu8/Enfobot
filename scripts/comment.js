@@ -23,7 +23,7 @@ module.exports = function (robot) {
             else {
                 updateParams = {
                     'sys_id': result.sys_id,
-                    'work_notes': comment
+                    'work_notes': comment,
                 };
                 console.log("Params= " + JSON.stringify(updateParams));
                 // Adds comment to ticket
