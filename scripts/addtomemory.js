@@ -20,6 +20,10 @@ module.exports = function(robot) {
         "Enfobot saved tasks - Gives you saved tasks"
     );
 
+    robot.commands.push(
+        "Enfobot forget - Empties memory"
+    );
+
     // Saves user to memory
     robot.respond(/save user (.*)/i, function (response) {
         var user = response.match[1];
@@ -57,9 +61,12 @@ module.exports = function(robot) {
         }
         else {
             response.send("Saved tasks: " + savedTask);
-        }
-        
-        
+        }   
+    });
+
+    robot.respond(/forget/i, function (response) {
+        robot.brain.remove('task');
+        response.send("Memory cleared");
     });
     
 };

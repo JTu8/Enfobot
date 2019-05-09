@@ -3,24 +3,24 @@
 var api = require("servicenow-lite");
 var underscore = require("underscore");
 
+
 module.exports = function (robot) {
+    
      robot.commands.push(
-         "Enfobot assign <tasknumber> from <prefix> to <Person/Group> - Assigns task to person or group"
+         "Enfobot assign <tasknumber> to <Person/Group> - Assigns task to person or group"
      );
 
-     robot.respond(/assign (.*) from (.*) to (.*)/i, function(response) {
+     robot.respond(/assign (.*) to (.*)/i, function(response) {
         var ticketNumber = response.match[1];
-        var prefix = response.match[2];
-        var person = response.match[3];
+        var person = response.match[2];
         var updateParams;
 
-        var pref = ticketNumber.substring(0, 3);
-
-        console.log("Pref= " + pref);
+        var prefix = ticketNumber.substring(0, 3);
 
         console.log("Ticket number= " + ticketNumber);
         console.log("Prefix= " + prefix);   
         console.log("Person= " + person);
+    
         // Gets sys_id of ticket 
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
@@ -46,8 +46,15 @@ module.exports = function (robot) {
                         response.send("Task " + ticketNumber +  " assigned to " + person);
                         console.log(JSON.stringify(result));
                     }
+
+                    
                 });
             }
+            
         });
-     });
+
+    }); 
 };
+
+
+
