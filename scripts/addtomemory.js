@@ -66,7 +66,7 @@ module.exports = function(robot) {
 
     robot.respond(/forget/i, function (response) {
         robot.brain.remove('task');
-        response.send("Memory cleared");
+        response.send("No active task number.");
     });
     
 };

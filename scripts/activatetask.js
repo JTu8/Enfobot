@@ -42,22 +42,5 @@ module.exports = function(robot) {
         }
         
     });
-
-    robot.respond(/assign to (.*)/i, function(response) {
-        var person = response.match[1];
-
-        person = robot.brain.get('user') || {};
-
-        if (robot.brain.get('user') == null) {
-            response.send("No saved users");
-        }
-        else {
-            response.send("User not found: " + person);
-        }
-
-        
-
-    });
-
-
+    
 }

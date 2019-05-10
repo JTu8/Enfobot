@@ -20,6 +20,36 @@ tables:
     prefix: "INC"
     # Used for showing a summary and sorting search results 
     # (if not specified, uses 'sys_created_on'). 
-    date_field: "sys_created_on"
+    date_field: "sys_updated_on"
+
+  - name: "sc_req_item"
+    prefix: "RITM"
+    # Used for showing a summary and sorting search results 
+    # (if not specified, uses 'sys_created_on'). 
+    date_field: "sys_updated_on"
+
+  - name: "problem"
+    prefix: "PRB"
+    # Used for showing a summary and sorting search results 
+    # (if not specified, uses 'sys_created_on'). 
+    date_field: "sys_updated_on"
+
+  - name: "pm_project_task"
+    prefix: "PRJTASK"
+    # Used for showing a summary and sorting search results 
+    # (if not specified, uses 'sys_created_on'). 
+    date_field: "sys_updated_on"
+
+  - name: "change_task"
+    prefix: "CTASK"
+    # Used for showing a summary and sorting search results 
+    # (if not specified, uses 'sys_created_on'). 
+    date_field: "sys_updated_on"
+
+  - name: "ticket"
+    prefix: "TKT"
+    # Used for showing a summary and sorting search results 
+    # (if not specified, uses 'sys_created_on'). 
+    date_field: "sys_updated_on"
   # If you have custom tables in your servicenow instance, you can use 
   # those too!

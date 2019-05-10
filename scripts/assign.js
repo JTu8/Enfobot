@@ -15,7 +15,7 @@ module.exports = function (robot) {
         var person = response.match[2];
         var updateParams;
 
-        var prefix = ticketNumber.substring(0, 3);
+        //var prefix = ticketNumber.substring(0, 3);
 
         console.log("Ticket number= " + ticketNumber);
         console.log("Prefix= " + prefix);   
