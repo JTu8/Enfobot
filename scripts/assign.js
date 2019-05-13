@@ -7,20 +7,18 @@ var underscore = require("underscore");
 module.exports = function (robot) {
     
      robot.commands.push(
-         "Enfobot assign <tasknumber> to <Person/Group> - Assigns task to person or group"
+         "Enfobot assign <tasknumber> to person|group <person|group> - Assigns task to person or group"
      );
 
-     robot.respond(/assign (.*) to (.*)/i, function(response) {
+     robot.respond(/assign (.*) to (.*) - (.*)/i, function(response) {
         var ticketNumber = response.match[1];
-        var person = response.match[2];
+        var choice = response.match[2];
+        var person = response.match[3];
         var updateParams;
 
-        //var prefix = ticketNumber.substring(0, 3);
-
-        console.log("Ticket number= " + ticketNumber);
-        console.log("Prefix= " + prefix);   
+        console.log("Ticket number= " + ticketNumber);  
         console.log("Person= " + person);
-    
+
         // Gets sys_id of ticket 
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
@@ -29,14 +27,28 @@ module.exports = function (robot) {
                 return;
             }
             else {
-                updateParams = {
-                    'sys_id': result.sys_id,
-                    'assigned_to': person
-                };
-                console.log("Params= " + JSON.stringify(updateParams));
-
+                // Selects whether user types person or group
+                switch(choice) {
+                    case 'person':
+                        updateParams = {
+                            'sys_id': result.sys_id,
+                            'assigned_to': person,
+                        };
+                        console.log("Params= " + JSON.stringify(updateParams));
+                        break;
+                    case 'group':
+                        updateParams = {
+                            'sys_id': result.sys_id,
+                            'assignment_group': person,
+                        };
+                        console.log("Params= " + JSON.stringify(updateParams));
+                        break;
+                    default:
+                        response.send("I did not understand that, please try again");
+                }
+                
                 // Assings ticket to user or group
-                api.updateTicket(updateParams, prefix, function (err, result) {
+                api.updateTicket(updateParams, ticketNumber, function (err, result) {
                     if(err) {
                         response.send("Assigning failed, please try again");
                         console.error(err);
@@ -49,11 +61,13 @@ module.exports = function (robot) {
 
                     
                 });
+             
             }
             
         });
 
     }); 
+    
 };
 
 

@@ -8,7 +8,7 @@ module.exports = function (robot) {
     robot.commands.push(
         "Enfobot search <task number> - Prints info about task"
     );
-
+    
     // Searches recrods by task number
     robot.respond(/search (.*)/i, function (response) {
         var taskNumber = response.match[1];
@@ -37,7 +37,8 @@ module.exports = function (robot) {
                 searchResult = {
                     'number': result.number,
                     'short_description': result.short_description,
-                    'assigned_to': result.assigned_to
+                    'assigned_to': result.assigned_to,
+                    'assignment_group': result.assignment_group
                 };
 
                 console.log(JSON.stringify(searchResult));
@@ -45,5 +46,6 @@ module.exports = function (robot) {
             }
         });
         
+    
     });
 };

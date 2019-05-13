@@ -7,10 +7,9 @@ module.exports = function (robot) {
         "Enfobot comment <ticket number> from <prefix> - <comments>"
     );
 
-    robot.respond(/comment (.*) from (.*) - (.*)/i, function(response) {
+    robot.respond(/comment (.*) - (.*)/i, function(response) {
         var ticketNumber = response.match[1];
-        var prefix = response.match[2];
-        var comment = response.match[3];
+        var comment = response.match[2];
         var updateParams;
 
         // Gets sys_id of ticket 
@@ -27,7 +26,7 @@ module.exports = function (robot) {
                 };
                 console.log("Params= " + JSON.stringify(updateParams));
                 // Adds comment to ticket
-                api.updateTicket(updateParams, prefix, function(err, result) {
+                api.updateTicket(updateParams, ticketNumber, function(err, result) {
                     if (err) {
                         response.send("Commenting failed, please try again");
                     }
