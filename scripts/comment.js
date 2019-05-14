@@ -4,7 +4,7 @@ var api = require("servicenow-lite");
 
 module.exports = function (robot) {
     robot.commands.push(
-        "Enfobot comment <ticket number> from <prefix> - <comments>"
+        "Enfobot comment <ticket number> - <comments>"
     );
 
     robot.respond(/comment (.*) - (.*)/i, function(response) {

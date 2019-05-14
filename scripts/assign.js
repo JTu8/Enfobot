@@ -2,17 +2,20 @@
 
 var api = require("servicenow-lite");
 var underscore = require("underscore");
-
+var path = require("path");
+var assign = require(path.resolve(__dirname, "./ticketassign.js"));
 
 module.exports = function (robot) {
     
      robot.commands.push(
-         "Enfobot assign <tasknumber> to person|group <person|group> - Assigns task to person or group"
+         "Enfobot assign <tasknumber> to person|group - <person|group> - Assigns task to person or group"
      );
 
      robot.respond(/assign (.*) to (.*) - (.*)/i, function(response) {
         var ticketNumber = response.match[1];
+        //choices are person or group
         var choice = response.match[2];
+        //persons or groups name
         var person = response.match[3];
         var updateParams;
 
@@ -46,21 +49,8 @@ module.exports = function (robot) {
                     default:
                         response.send("I did not understand that, please try again");
                 }
-                
-                // Assings ticket to user or group
-                api.updateTicket(updateParams, ticketNumber, function (err, result) {
-                    if(err) {
-                        response.send("Assigning failed, please try again");
-                        console.error(err);
-                        return;
-                    }
-                    else {
-                        response.send("Task " + ticketNumber +  " assigned to " + person);
-                        console.log(JSON.stringify(result));
-                    }
-
-                    
-                });
+                // Calls function that assigns ticket to user or group
+                assign.updateTask(updateParams, ticketNumber, person, response);
              
             }
             

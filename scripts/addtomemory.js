@@ -21,7 +21,7 @@ module.exports = function(robot) {
     );
 
     robot.commands.push(
-        "Enfobot forget - Empties memory"
+        "Enfobot forget - Removes task from memory"
     );
 
     // Saves user to memory

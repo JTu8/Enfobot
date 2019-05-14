@@ -1,7 +1,9 @@
 "use strict";
 
-var api = require("servicenow-lite");
-var prettyJson = require("prettyjson");
+//var api = require("servicenow-lite");
+//var prettyJson = require("prettyjson");
+var path = require("path");
+var get = require(path.resolve(__dirname, "./getticketdata.js"));
 
 
 module.exports = function (robot) {
@@ -26,25 +28,8 @@ module.exports = function (robot) {
             }
         });
         */
-        
-        api.getRecordById(taskNumber, function(err, result) {
-            if (err) {
-                response.send("Task not found, please try again");
-                console.error(err);
-            }
-            else {
-                
-                searchResult = {
-                    'number': result.number,
-                    'short_description': result.short_description,
-                    'assigned_to': result.assigned_to,
-                    'assignment_group': result.assignment_group
-                };
 
-                console.log(JSON.stringify(searchResult));
-                response.send(prettyJson.render(searchResult));
-            }
-        });
+        get.getTicketData(taskNumber, response);
         
     
     });
