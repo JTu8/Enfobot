@@ -1,6 +1,8 @@
 "use strict";
 
 var api = require("servicenow-lite");
+var path = require("path");
+var assign = require(path.resolve(__dirname, "./ticketassign.js"));
 
 
 module.exports = function(robot) {
@@ -32,7 +34,8 @@ module.exports = function(robot) {
                         'assigned_to': person
                     }
                     console.log("Params= " + JSON.stringify(assignParams));
-                    response.send("Task assigned to user: " + person);
+
+                    assign.updateTask(assignParams, savedTask, person, response);
                 }
             });           
 
