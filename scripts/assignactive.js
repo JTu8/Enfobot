@@ -2,7 +2,7 @@
 
 var api = require("servicenow-lite");
 var path = require("path");
-var assign = require(path.resolve(__dirname, "./ticketassign.js"));
+var assign = require(path.resolve(__dirname, "./ticketupdate.js"));
 
 
 module.exports = function(robot) {

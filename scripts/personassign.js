@@ -2,7 +2,7 @@
 
 var api = require("servicenow-lite");
 var path = require("path");
-var assign = require(path.resolve(__dirname, "./ticketassign.js"));
+var assign = require(path.resolve(__dirname, "./ticketupdate.js"));
 
 module.exports = function (robot) {
     
@@ -33,7 +33,8 @@ module.exports = function (robot) {
                 console.log("Params= " + JSON.stringify(updateParams));
 
                 // Calls function that assigns ticket to user 
-                 assign.updateTask(updateParams, ticketNumber, person, response);
+                 assign.updateTask(updateParams, ticketNumber, response);
+                 response.send("Task " + ticketNumber +  " assigned to " + person);
 
             }
             

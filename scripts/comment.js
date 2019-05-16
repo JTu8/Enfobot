@@ -1,6 +1,8 @@
 "use strict";
 
 var api = require("servicenow-lite");
+var path = require("path");
+var update = require(path.resolve(__dirname, "./ticketupdate.js"));
 
 module.exports = function (robot) {
     robot.commands.push(
@@ -26,17 +28,9 @@ module.exports = function (robot) {
                 };
                 console.log("Params= " + JSON.stringify(updateParams));
                 // Adds comment to ticket
-                api.updateTicket(updateParams, ticketNumber, function(err, result) {
-                    if (err) {
-                        response.send("Commenting failed, please try again");
-                    }
-                    else {
-                        response.send("Comments added to task " + ticketNumber);
-                        console.log(JSON.stringify(result));
-
-                        
-                    }
-                });
+                update.updateTask(updateParams, ticketNumber, response);
+                response.send("Comments added to task " + ticketNumber);
+                
             }
         });
     });

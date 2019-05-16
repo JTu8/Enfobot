@@ -2,17 +2,16 @@
 
 var api = require("servicenow-lite");
 
-function updateTask(updateParams, ticketNumber, person, response) {
+function updateTask(updateParams, ticketNumber, response) {
     
     // Updates ticket
     api.updateTicket(updateParams, ticketNumber, function (err, result) {
         if(err) {
-            response.send("Assigning failed, please try again");
+            response.send("Something went wrong, please try again");
             console.error(err);
             return;
         }
         else {
-            response.send("Task " + ticketNumber +  " assigned to " + person);
             console.log(JSON.stringify(result));
         }
 
