@@ -35,7 +35,7 @@ module.exports = function(robot) {
                         'assigned_to': result.assigned_to
                     };
                     response.send(prettyjson.render(taskData));
-                    response.send("Typical commands: assign to <me/person/group>, comment, show comments, close task");
+                    response.send("Typical commands: assign to <me/person/group>, give comment, show comments, close task");
                 }
             });
     
