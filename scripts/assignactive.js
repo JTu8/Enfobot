@@ -36,6 +36,7 @@ module.exports = function(robot) {
                     console.log("Params= " + JSON.stringify(assignParams));
 
                     assign.updateTask(assignParams, savedTask, person, response);
+                    response.send("Task " + savedTask + " assigned to " + person);
                 }
             });           
 
