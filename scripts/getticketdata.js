@@ -1,7 +1,6 @@
 "use strict";
 
 var api = require("servicenow-lite");
-var prettyJson = require("prettyjson");
 
 function getTicketData (taskNumber, response) {
     var taskNumber;
@@ -22,7 +21,9 @@ function getTicketData (taskNumber, response) {
             };
 
             console.log(JSON.stringify(searchResult));
-            response.send(prettyJson.render(searchResult));
+            response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
+                            searchResult['short_description'] + "\n" + "Assigned to: " + searchResult['assigned_to'] + 
+                            "\n" + "Assignment group: " + searchResult['assignment_group']);
         }
     });
 

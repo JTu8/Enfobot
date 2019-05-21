@@ -1,9 +1,6 @@
 "use strict";
 
 var api = require("servicenow-lite");
-var prettyjson = require("prettyjson");
-var path = require('path');
-
 
 
 // Gets task from memory and you can work with that task
@@ -24,7 +21,7 @@ module.exports = function(robot) {
             response.send("No saved tasks");
         }
         else {
-            // Gets saved task from memory and show info about task
+            // Gets saved task from memory and shows info about task
             api.getRecordById(activeTask, function(err, result) {
                 if (err) {
                     response.send("Fetching data of task " + activeTask + " failed, please try again");
@@ -34,7 +31,10 @@ module.exports = function(robot) {
                         'short_description': result.short_description,
                         'assigned_to': result.assigned_to
                     };
-                    response.send(prettyjson.render(taskData));
+                    response.send(
+                        "Short description: " + taskData['short_description'] + "\n" + 
+                        "Assigned to: " + taskData['assigned_to']
+                    );
                     response.send("Typical commands: assign to <me/person/group>, give comment, show comments, close task");
                 }
             });

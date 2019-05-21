@@ -19,7 +19,7 @@ module.exports = function(robot) {
         if (robot.brain.get('user') == null || robot.brain.get('task') == null) {
             response.send("No saved users or tasks");
             response.send("Save user using command Enfobot save user <User> or assign user with command " + 
-                            "Enfobot assign assign <tasknumber> to person|group - <person|group>");
+                            "Enfobot assign <tasknumber> to person|group - <person|group>");
         }
         else {
             // Gets sys_id of saved task

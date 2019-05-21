@@ -3,9 +3,7 @@
 var api = require("servicenow-lite");
 
 module.exports = function (robot) {
-    robot.commands.push(
-        "Enfobot find <search param> - Find data"
-    );
+    
 
     robot.respond(/find (.*)/i, function (response) {
         var taskNumber = response.match[1];
@@ -18,8 +16,8 @@ module.exports = function (robot) {
             }
             else {
                 response.send("Your search results");
-                response.send(JSON.stringify(result));
-                console.log(JSON.stringify(result));
+                //response.send(JSON.stringify(result));
+                console.log(result);
                 
             }
         });

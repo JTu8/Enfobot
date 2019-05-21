@@ -20,6 +20,7 @@
     "hubot-slack": "^4.7.1",
     "prettyjson": "^1.2.1",
     "servicenow-lite": "^1.1.0",
+    "servicenow-rest": "^1.2.2",
     "underscore": "^1.9.1"
   },
   "engines": {

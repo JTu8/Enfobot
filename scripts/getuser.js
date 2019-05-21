@@ -10,6 +10,7 @@ module.exports = function (robot) {
     robot.respond(/get user (.*)/i, function(response) {
         var user = response.match[1];
 
+
         api.getUser(user, function(err, result) {
             if (err) {
                 response.send("User not found, please try again");
@@ -17,8 +18,16 @@ module.exports = function (robot) {
             }
             else {
                 response.send("User info: ");
-                console.log(result);
+                console.log(JSON.stringify(result));
+                response.send(JSON.stringify(result['sys_id']));
             }
         });
+
+    });
+
+    robot.respond(/get username (.*)/i, function(response) {
+        var sysID = response.match[1];
+
+        
     });
 };
