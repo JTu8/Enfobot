@@ -31,11 +31,24 @@ module.exports = function(robot) {
                         'short_description': result.short_description,
                         'assigned_to': result.assigned_to
                     };
-                    response.send(
-                        "Short description: " + taskData['short_description'] + "\n" + 
-                        "Assigned to: " + taskData['assigned_to']
-                    );
-                    response.send("Typical commands: assign to <me/person/group>, give comment, show comments, close task");
+
+                    var sysID = result.assigned_to;
+                    
+                    api.getUserByID(sysID, function(err, result) {
+                        if (err) {
+                            response.send("sys_id was not found, please try again");
+                            console.error(err);
+                            return;
+                        }
+                        else {
+                            response.send(
+                                "Short description: " + taskData['short_description'] + "\n" + 
+                                "Assigned to: " + result['name']
+                            );
+                            response.send("Typical commands: assign to me, give comment, show comments, close task");
+                        }
+                    });
+      
                 }
             });
     

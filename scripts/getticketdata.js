@@ -20,10 +20,25 @@ function getTicketData (taskNumber, response) {
                 'assignment_group': result.assignment_group
             };
 
-            console.log(JSON.stringify(searchResult));
-            response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
-                            searchResult['short_description'] + "\n" + "Assigned to: " + searchResult['assigned_to'] + 
-                            "\n" + "Assignment group: " + searchResult['assignment_group']);
+            var sysID = result.assigned_to;
+            console.log("sys_id= " + sysID);
+     
+            api.getUserByID(sysID, function(err, result) {
+                if (err) {
+                    response.send("sys_id was not found, please try again");
+                    console.error(err);
+                    return;
+                }
+                else {
+                    console.log(JSON.stringify(searchResult));
+                    response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
+                                searchResult['short_description'] + "\n" + "Assigned to: " + result['name'] + 
+                                "\n" + "Assignment group: " + searchResult['assignment_group']);
+                }
+            });
+        
+            
+            
         }
     });
 

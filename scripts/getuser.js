@@ -28,6 +28,18 @@ module.exports = function (robot) {
     robot.respond(/get username (.*)/i, function(response) {
         var sysID = response.match[1];
 
+        api.getUserByID(sysID, function(err, result) {
+            if (err) {
+                response.send("sys_id was not found, please try again");
+                console.error(err);
+                return;
+            }
+            else {
+                response.send("Username: " + result['name']);
+                console.log(JSON.stringify(result));
+                
+            }
+        });
         
     });
 };

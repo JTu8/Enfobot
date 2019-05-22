@@ -12,7 +12,7 @@ module.exports = function (robot) {
     robot.respond(/close task (.*) - (.*)/i, function(response) {
         var ticketNumber = response.match[1];
         var closeComment = response.match[2];
-        var updateParams;
+        var closeParams;
 
         // Gets sys_id of ticket
         api.getRecordById(ticketNumber, function(err, result) {
@@ -22,6 +22,7 @@ module.exports = function (robot) {
                 return;
             }
             else {
+                
                 
             }
         });
