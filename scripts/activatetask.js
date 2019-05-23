@@ -33,22 +33,34 @@ module.exports = function(robot) {
                     };
 
                     var sysID = result.assigned_to;
+
+                    // Checks if assigned_to is empty
+                    if (taskData['assigned_to'].length === 0) {
+                        console.log(JSON.stringify(taskData));
+                        response.send(
+                            "Short description: " + taskData['short_description'] + "\n" + 
+                            "Assigned to: " + taskData['assigned_to']
+                        );
+                        response.send("Typical commands: assign to me, give comment, show comments, close task");
+                    }
+                    else {
+                        //If task is assigned to someone then call function that finds user by sys_id
+                        api.getUserByID(sysID, function(err, result) {
+                            if (err) {
+                                response.send("sys_id was not found, please try again");
+                                console.error(err);
+                                return;
+                            }
+                            else {
+                                response.send(
+                                    "Short description: " + taskData['short_description'] + "\n" + 
+                                    "Assigned to: " + result['name']
+                                );
+                                response.send("Typical commands: assign to me, give comment, show comments, close task");
+                            }
+                        });
+                    }
                     
-                    api.getUserByID(sysID, function(err, result) {
-                        if (err) {
-                            response.send("sys_id was not found, please try again");
-                            console.error(err);
-                            return;
-                        }
-                        else {
-                            response.send(
-                                "Short description: " + taskData['short_description'] + "\n" + 
-                                "Assigned to: " + result['name']
-                            );
-                            response.send("Typical commands: assign to me, give comment, show comments, close task");
-                        }
-                    });
-      
                 }
             });
     

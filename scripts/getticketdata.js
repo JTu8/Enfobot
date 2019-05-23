@@ -22,21 +22,34 @@ function getTicketData (taskNumber, response) {
 
             var sysID = result.assigned_to;
             console.log("sys_id= " + sysID);
-     
-            api.getUserByID(sysID, function(err, result) {
-                if (err) {
-                    response.send("sys_id was not found, please try again");
-                    console.error(err);
-                    return;
-                }
-                else {
-                    console.log(JSON.stringify(searchResult));
-                    response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
-                                searchResult['short_description'] + "\n" + "Assigned to: " + result['name'] + 
-                                "\n" + "Assignment group: " + searchResult['assignment_group']);
-                }
-            });
-        
+
+            //Checks if assigned_to is empty
+            if (searchResult['assigned_to'].length === 0) {
+                console.log("Assigned to is null");
+                console.log(JSON.stringify(searchResult));
+                response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
+                            searchResult['short_description'] + "\n" + "Assigned to: " + searchResult['assigned_to'] + 
+                            "\n" + "Assignment group: " + searchResult['assignment_group']);   
+            }
+            else {
+                //If task is assigned to someone then call function that finds user by sys_id
+                api.getUserByID(sysID, function(err, result) {
+                    if (err) {
+                        response.send("sys_id was not found, please try again");
+                        console.error(err);
+                        return;
+                    }
+                    else {
+                        console.log(JSON.stringify(searchResult));
+                        response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
+                                    searchResult['short_description'] + "\n" + "Assigned to: " + result['name'] + 
+                                    "\n" + "Assignment group: " + searchResult['assignment_group']);
+                                    
+                    }
+                });
+                
+            }
+            
             
             
         }
