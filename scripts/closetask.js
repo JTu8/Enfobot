@@ -22,6 +22,16 @@ module.exports = function (robot) {
                 return;
             }
             else {
+                closeParams = {
+                    'sys_id': result.sys_id,
+                    'close_notes': closeComment,
+                    'incident_state': 6
+                };
+                console.log("Close paramas= " + JSON.stringify(closeParams));
+                //Close ticket
+                
+                close.updateTask(closeParams, ticketNumber, response);
+                response.send("Ticket " + ticketNumber + " closed");
                 
                 
             }

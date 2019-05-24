@@ -18,6 +18,7 @@ module.exports = function (robot) {
                 response.send("Your search results");
                 //response.send(JSON.stringify(result));
                 console.log(result);
+                //response.send(JSON.stringify(result));
                 
             }
         });

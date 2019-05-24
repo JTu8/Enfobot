@@ -24,7 +24,7 @@ module.exports = function(robot) {
             }
             else {
                 response.send("New ticket created");
-                response.send(prettyjson.render(result));
+                response.send(result['number']);
                 console.log(JSON.stringify(result));
             }
         });
