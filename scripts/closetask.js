@@ -22,17 +22,47 @@ module.exports = function (robot) {
                 return;
             }
             else {
-                closeParams = {
-                    'sys_id': result.sys_id,
-                    'close_notes': closeComment,
-                    'incident_state': 6
-                };
-                console.log("Close paramas= " + JSON.stringify(closeParams));
-                //Close ticket
-                
-                close.updateTask(closeParams, ticketNumber, response);
-                response.send("Ticket " + ticketNumber + " closed");
-                
+                var sysClass = result['sys_class_name'];
+                // Checks what is tasks class and updates incident_state
+                switch (result['sys_class_name']) {
+                    case 'incident':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'incident_state': 6
+                        };
+                        console.log(sysClass);
+                        console.log("Close paramas= " + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Ticket " + ticketNumber + " closed");
+                        break;
+                    case 'ticket':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'state': 7
+                        };
+                        console.log(sysClass);
+                        console.log("Close paramas= " + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Ticket " + ticketNumber + " closed");
+                        break;
+                    case 'problem':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'problem_state': 4
+                        };
+                        console.log(sysClass);
+                        console.log("Close paramas= " + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Task " + ticketNumber + " closed");
+                        break;
+                }
+       
                 
             }
         });

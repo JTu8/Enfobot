@@ -14,8 +14,6 @@ function updateTask(updateParams, ticketNumber, response) {
         else {
             console.log(JSON.stringify(result));
         }
-
-        
     });
    
 }
