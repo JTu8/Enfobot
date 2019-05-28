@@ -61,6 +61,43 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Task " + ticketNumber + " closed");
                         break;
+                    case 'change_request':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'state': 3
+                        };
+                        console.log(sysClass);
+                        console.log("Close paramas= " + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Task " + ticketNumber + " closed");
+                        break;
+                    case 'change_task':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'state': 3
+                        };
+                        console.log(sysClass);
+                        console.log("Close paramas= " + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Task " + ticketNumber + " closed");
+                        break;
+                    case 'sc_rec_item':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'state': 3
+                        };
+                        console.log(sysClass);
+                        console.log("Close paramas= " + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Task " + ticketNumber + " closed");
+                        break;
+                        
                 }
        
                 
