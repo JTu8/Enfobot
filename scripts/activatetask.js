@@ -1,6 +1,8 @@
 "use strict";
 
 var api = require("servicenow-lite");
+const path = require("path");
+var link = require(path.resolve(__dirname, "./link.js"));
 
 
 // Gets task from memory and you can work with that task
@@ -39,7 +41,7 @@ module.exports = function(robot) {
                         console.log(JSON.stringify(taskData));
                         response.send(
                             "Short description: " + taskData['short_description'] + "\n" + 
-                            "Assigned to: " + taskData['assigned_to']
+                            "Assigned to: " + taskData['assigned_to'] + "\n" + "Link: " + link.urlDirect(activeTask)
                         );
                         response.send("Typical commands: assign to me, give comment, show comments, close task");
                     }
@@ -54,7 +56,7 @@ module.exports = function(robot) {
                             else {
                                 response.send(
                                     "Short description: " + taskData['short_description'] + "\n" + 
-                                    "Assigned to: " + result['name']
+                                    "Assigned to: " + result['name'] + "\n" + "Link: " + link.urlDirect(activeTask)
                                 );
                                 response.send("Typical commands: assign to me, give comment, show comments, close task");
                             }

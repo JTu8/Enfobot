@@ -1,6 +1,9 @@
 "use strict";
 
 var api = require("servicenow-lite");
+const path = require("path");
+var link = require(path.resolve(__dirname, "./link.js"));
+
 
 function getTicketData (taskNumber, response) {
     var taskNumber;
@@ -17,7 +20,6 @@ function getTicketData (taskNumber, response) {
                 'number': result.number,
                 'short_description': result.short_description,
                 'assigned_to': result.assigned_to,
-                'assignment_group': result.assignment_group
             };
 
             var sysID = result.assigned_to;
@@ -29,7 +31,7 @@ function getTicketData (taskNumber, response) {
                 console.log(JSON.stringify(searchResult));
                 response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
                             searchResult['short_description'] + "\n" + "Assigned to: " + searchResult['assigned_to'] + 
-                            "\n" + "Assignment group: " + searchResult['assignment_group']);   
+                            "\n" + "Link: " + link.urlDirect(taskNumber));   
             }
             else {
                 //If task is assigned to someone then call function that finds user by sys_id
@@ -43,7 +45,7 @@ function getTicketData (taskNumber, response) {
                         console.log(JSON.stringify(searchResult));
                         response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
                                     searchResult['short_description'] + "\n" + "Assigned to: " + result['name'] + 
-                                    "\n" + "Assignment group: " + searchResult['assignment_group']);
+                                    "\n" + "Link: " + link.urlDirect(taskNumber));
                                     
                     }
                 });

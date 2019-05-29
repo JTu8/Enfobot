@@ -5,10 +5,10 @@ var prettyjson = require("prettyjson");
 
 module.exports = function(robot) {
     robot.commands.push(
-        "Enfobot create <prefix> with <Short description> - Creates a new ticket"
+        "Enfobot create <prefix> with sh <Short description> - Creates a new ticket"
     );
     // Creates a new ticket
-    robot.respond(/create (.*) with (.*)/i, function(response) {
+    robot.respond(/create (.*) with sh (.*)/i, function(response) {
         var prefix = response.match[1];
         var shortDescription = response.match[2];
 
