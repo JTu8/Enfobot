@@ -97,6 +97,17 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Task " + ticketNumber + " closed");
                         break;
+                    case 'pm_project_task':
+                        closeParams = {
+                            'sys_id': result.sys_id,
+                            'close_notes': closeComment,
+                            'state': 3
+                        };
+                        console.log(sysClass);
+                        console.log("Close params=" + JSON.stringify(closeParams));
+                        //Close ticket
+                        close.updateTask(closeParams, ticketNumber, response);
+                        
                         
                 }
        

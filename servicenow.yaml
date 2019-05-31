@@ -51,5 +51,11 @@ tables:
     # Used for showing a summary and sorting search results 
     # (if not specified, uses 'sys_created_on'). 
     date_field: "sys_updated_on"
+
+  - name: "sys_journal_field"
+    prefix: "JOU"
+    # Used for showing a summary and sorting search results 
+    # (if not specified, uses 'sys_created_on'). 
+    date_field: "sys_created_on"
   # If you have custom tables in your servicenow instance, you can use 
   # those too!
