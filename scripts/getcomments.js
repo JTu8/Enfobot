@@ -7,5 +7,9 @@ module.exports = function(robot) {
         "Enfobot get comments from <tasknumber> - Gives you comments of task"
     );
 
-    
+    robot.respond(/get comments from (.*)/i, function(response) {
+        var taskNumber = response.match[1];
+
+        
+    });
 };
