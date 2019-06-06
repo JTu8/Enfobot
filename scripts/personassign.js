@@ -18,28 +18,45 @@ module.exports = function (robot) {
         console.log("Ticket number= " + ticketNumber);  
         console.log("Person= " + person);
 
-        // Gets sys_id of ticket 
-        api.getRecordById(ticketNumber, function(err, result) {
+        // Check if user exists
+        api.getUserName(person, function(err, result) {
             if (err) {
-                response.send("Task not found, please try again");
+                response.send("Something went wrong, please try again");
                 console.error(err);
-                return;
             }
             else {
-                updateParams = {
-                    'sys_id': result.sys_id,
-                    'assigned_to': person,
-                };
-                console.log("Params= " + JSON.stringify(updateParams));
+                if (result === undefined) {
+                    console.log("Not found");
+                    response.send("User was not found, please try again");
+                }
+                else {
+                    // Gets sys_id of ticket 
+                    api.getRecordById(ticketNumber, function(err, result) {
+                        if (err) {
+                            response.send("Task not found, please try again");
+                            console.error(err);
+                            return;
+                        }
+                        else {
+                            updateParams = {
+                                'sys_id': result.sys_id,
+                                'assigned_to': person,
+                            };
+                            console.log("Params= " + JSON.stringify(updateParams));
 
-                // Calls function that assigns ticket to user 
-                 assign.updateTask(updateParams, ticketNumber, response);
-                 response.send("Task " + ticketNumber +  " assigned to " + person);
+                            // Calls function that assigns ticket to user 
+                            assign.updateTask(updateParams, ticketNumber, response);
+                            response.send("Task " + ticketNumber +  " assigned to " + person);
 
-            }
+                        }
             
              
+                    });
+                }
+            }
         });
+
+        
 
     }); 
     
