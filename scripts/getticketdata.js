@@ -23,7 +23,7 @@ function getTicketData (taskNumber, response) {
             };
 
             var sysID = result.assigned_to;
-            console.log("sys_id= " + sysID);
+            console.log("users sys_id= " + sysID);
 
             //Checks if assigned_to is empty
             if (searchResult['assigned_to'].length === 0) {

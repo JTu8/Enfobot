@@ -19,10 +19,8 @@ module.exports = function(robot) {
                 return;
             }
             else {
-                taskParams = {
-                    'sys_id': result.sys_id
-                };
-                console.log(JSON.stringify(taskParams));
+                taskParams = result['sys_id'];
+                console.log(taskParams);
             }
 
             api.getCommentByTask(taskParams, function(err, result) {
@@ -32,8 +30,8 @@ module.exports = function(robot) {
                     return;
                 }
                 else {
-                    response.send("Succeess!");
-                    console.log(JSON.stringify(result['element_id']));
+                    response.send("Success!");
+                    console.log(JSON.stringify(result));
                 }
             });
         });
