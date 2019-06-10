@@ -82,4 +82,20 @@ module.exports = function (robot) {
             }
         });
     });
+
+    robot.respond(/get group (.*)/i, function(response) {
+        var sysID = response.match[1];
+
+        api.getGroupByID(sysID, function(err, result) {
+            if (err) {
+                response.send("Something went wrong, please try again");
+                console.error(err);
+                return;
+            }
+            else {
+                response.send("Success!");
+                console.log("Groups data " + JSON.stringify(result));
+            }
+        }); 
+    });
 };

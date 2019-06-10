@@ -33,7 +33,7 @@ module.exports = function(robot) {
                 }
                 else {
                     response.send("Succeess!");
-                    console.log(JSON.stringify(result['comments']));
+                    console.log(JSON.stringify(result['element_id']));
                 }
             });
         });

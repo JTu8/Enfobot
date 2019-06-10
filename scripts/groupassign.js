@@ -14,24 +14,42 @@ module.exports = function(robot) {
         console.log("Ticket number= " + ticketNumber);
         console.log("Group= " + group);
 
-        // Gets sys_id of ticket
-        api.getRecordById(ticketNumber, function(err, result) {
+        //Check if group exists
+        api.getGroupByName(group, function(err, result) {
             if (err) {
-                response.send("Task not found, please try again");
+                response.send("Something went wrong, please try again");
                 console.error(err);
                 return;
             }
             else {
-                updateParams = {
-                    'sys_id': result.sys_id,
-                    'assignment_group': group
-                }
+                if (result === undefined) {
+                    response.send("Group was not found, please try again");
 
-                console.log("Params=" + JSON.stringify(updateParams));
-                // Calls function that assigns ticket to group
-                assign.updateTask(updateParams, ticketNumber, group, response);
-                response.send("Task " + ticketNumber + " assigned to group " + group);
+                }
+                else {
+                    // Gets sys_id of ticket
+                    api.getRecordById(ticketNumber, function(err, result) {
+                        if (err) {
+                            response.send("Task not found, please try again");
+                            console.error(err);
+                            return;
+                                    }
+                        else {
+                            updateParams = {
+                                'sys_id': result.sys_id,
+                                'assignment_group': group
+                            }
+
+                            console.log("Params=" + JSON.stringify(updateParams));
+                            // Calls function that assigns ticket to group
+                            assign.updateTask(updateParams, ticketNumber, group, response);
+                            response.send("Task " + ticketNumber + " assigned to group " + group);
+                        }
+                    });
+                }
             }
         });
+
+        
     });
 };

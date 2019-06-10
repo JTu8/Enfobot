@@ -1,5 +1,19 @@
 # Description:
 #   Example scripts for you to examine and try out.
+
+#Dependencies:
+#   None
+#
+# Configuration:
+#   HUBOT_SERVICENOW_USER=
+#   HUBOT_SERVICENOW_PASSWORD=
+#   HUBOT_SLACK_TOKEN=
+#
+# Commands:
+#   ship it - Display a motivation squirrel
+#
+# Author:
+#   Jere Tuppurainen
 #
 # Notes:
 #   They are commented out by default, because most of them are pretty silly and
