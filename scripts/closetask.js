@@ -107,6 +107,8 @@ module.exports = function (robot) {
                         console.log("Close params=" + JSON.stringify(closeParams));
                         //Close ticket
                         close.updateTask(closeParams, ticketNumber, response);
+                        response.send("Task " + ticketNumber + " closed");
+                        break;
                         
                         
                 }

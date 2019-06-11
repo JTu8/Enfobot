@@ -29,11 +29,11 @@ module.exports = function(robot) {
                 else {
                     var assignParams = {
                         'sys_id': result.sys_id,
-                        'assigned_to': comment
+                        'work_notes': comment
                     }
                     console.log("Params= " + JSON.stringify(assignParams));
-                    
                     update.updateTask(assignParams, taskNumber, response);
+                    response.send("Comments added to task " + taskNumber);
                     
                 }
             });

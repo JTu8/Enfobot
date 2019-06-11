@@ -41,7 +41,7 @@ module.exports = function(robot) {
                             }
 
                             console.log("Params=" + JSON.stringify(updateParams));
-                            // Calls function that assigns ticket to group
+                            // Calls function that updates assignment_group field
                             assign.updateTask(updateParams, ticketNumber, group, response);
                             response.send("Task " + ticketNumber + " assigned to group " + group);
                         }

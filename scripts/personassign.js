@@ -44,7 +44,7 @@ module.exports = function (robot) {
                             };
                             console.log("Params= " + JSON.stringify(updateParams));
 
-                            // Calls function that assigns ticket to user 
+                            // Calls function that updates assigned_to field 
                             assign.updateTask(updateParams, ticketNumber, response);
                             response.send("Task " + ticketNumber +  " assigned to " + person);
 
