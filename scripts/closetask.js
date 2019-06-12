@@ -14,6 +14,8 @@ module.exports = function (robot) {
         var closeComment = response.match[2];
         var closeParams;
 
+        console.log(ticketNumber);
+
         // Gets sys_id of ticket
         api.getRecordById(ticketNumber, function(err, result) {
             if (err) {
@@ -24,8 +26,8 @@ module.exports = function (robot) {
             else {
                 var sysClass = result['sys_class_name'];
                 // Checks what is tasks class and updates incident_state
-                switch (result['sys_class_name']) {
-                    case 'incident':
+                switch (result['dv_sys_class_name']) {
+                    case 'Incident':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,
@@ -37,11 +39,11 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Ticket " + ticketNumber + " closed");
                         break;
-                    case 'ticket':
+                    case 'Ticket':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,
-                            'state': 7
+                            'state': 3
                         };
                         console.log(sysClass);
                         console.log("Close paramas= " + JSON.stringify(closeParams));
@@ -49,7 +51,7 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Ticket " + ticketNumber + " closed");
                         break;
-                    case 'problem':
+                    case 'Problem':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,
@@ -61,7 +63,7 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Task " + ticketNumber + " closed");
                         break;
-                    case 'change_request':
+                    case 'Change Request':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,
@@ -73,7 +75,7 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Task " + ticketNumber + " closed");
                         break;
-                    case 'change_task':
+                    case 'Change Task':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,
@@ -85,7 +87,7 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Task " + ticketNumber + " closed");
                         break;
-                    case 'sc_rec_item':
+                    case 'Requested Item':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,
@@ -97,7 +99,7 @@ module.exports = function (robot) {
                         close.updateTask(closeParams, ticketNumber, response);
                         response.send("Task " + ticketNumber + " closed");
                         break;
-                    case 'pm_project_task':
+                    case 'Project Task':
                         closeParams = {
                             'sys_id': result.sys_id,
                             'close_notes': closeComment,

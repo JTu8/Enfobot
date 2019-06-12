@@ -15,43 +15,59 @@ function getTicketData (taskNumber, response) {
             console.error(err);
         }
         else {
-            
+            var sysClass = result['dv_sys_class_name'];
+            console.log(sysClass);
+            // Checks what tasks class is and sets state by it
+            var state;
+            switch (result['dv_sys_class_name']) {
+                case 'Incident':
+                    state = result['dv_incident_state'];
+                    console.log(state);
+                    break;
+                case 'Ticket':
+                    state = result['dv_state'];
+                    console.log(state);
+                    break;
+                case 'Problem':
+                    state = result['dv_problem_state'];
+                    console.log(state);
+                    break;
+                case 'Change Request':
+                    state = result['dv_state'];
+                    console.log(state);
+                    break;
+                case 'Change Task':
+                    state = result['dv_state'];
+                    console.log(state);
+                    break;
+                case 'Requested Item':
+                    state = result['dv_state'];
+                    console.log(state);
+                    break;
+                case 'Project Task':
+                    state = result['dv_state'];
+                    console.log(state);
+                    break;
+            }
             searchResult = {
                 'number': result.number,
                 'short_description': result.short_description,
-                'assigned_to': result.assigned_to,
+                'description': result.description,
+                'dv_assigned_to': result.dv_assigned_to,
+                'dv_assignment_group': result.dv_assignment_group,
+                'dv_sys_updated_on': result.dv_sys_updated_on
             };
+            
+            
 
             var sysID = result.assigned_to;
             console.log("users sys_id= " + sysID);
+            console.log(searchResult);
 
-            //Checks if assigned_to is empty
-            if (searchResult['assigned_to'].length === 0) {
-                console.log("Assigned to is null");
-                console.log(JSON.stringify(searchResult));
+            console.log(JSON.stringify(searchResult));
                 response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
-                            searchResult['short_description'] + "\n" + "Assigned to: " + searchResult['assigned_to'] + 
-                            "\n" + "Link: " + link.urlDirect(taskNumber));   
-            }
-            else {
-                //If task is assigned to someone then call function that finds user by sys_id
-                api.getUserByID(sysID, function(err, result) {
-                    if (err) {
-                        response.send("sys_id was not found, please try again");
-                        console.error(err);
-                        return;
-                    }
-                    else {
-                        console.log(JSON.stringify(searchResult));
-                        response.send("Task number: " + searchResult['number'] + "\n" + "Short description: " + 
-                                    searchResult['short_description'] + "\n" + "Assigned to: " + result['name'] + 
-                                    "\n" + "Link: " + link.urlDirect(taskNumber));
-                                    
-                    }
-                });
-                
-            }
-            
+                            searchResult['short_description'] + "\n" + "Description: " + searchResult['description'] + "\n" + "Assigned to: " + searchResult['dv_assigned_to'] +  "\n" + "Assignment group: " + searchResult['dv_assignment_group'] + "\n" 
+                             + "State: " + state + "\n" + "Last updated on: " + searchResult['dv_sys_updated_on'] + "\n" + "Link: " + link.urlDirect(taskNumber));  
             
             
         }

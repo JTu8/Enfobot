@@ -21,11 +21,7 @@ module.exports = function (robot) {
                 //response.send(JSON.stringify(result));
                 
             }
-        });
-        
-
-        
-        
+        }); 
     
     });
 };

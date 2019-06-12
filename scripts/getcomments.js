@@ -10,7 +10,6 @@ module.exports = function(robot) {
     robot.respond(/get comments from (.*)/i, function(response) {
         var taskNumber = response.match[1];
         var taskParams;
-        var comments;
         
         api.getRecordById(taskNumber, function(err, result) {
             if (err) {
@@ -19,21 +18,11 @@ module.exports = function(robot) {
                 return;
             }
             else {
-                taskParams = result['sys_id'];
+                taskParams = result['dv_comments_and_work_notes'];
                 console.log(taskParams);
+                response.send(taskParams);
             }
 
-            api.getCommentByTask(taskParams, function(err, result) {
-                if (err) {
-                    response.send("Comment fetching failed, please try again");
-                    console.error(err);
-                    return;
-                }
-                else {
-                    response.send("Success!");
-                    console.log(JSON.stringify(result));
-                }
-            });
         });
 
     });
