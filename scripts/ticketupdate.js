@@ -1,3 +1,6 @@
+/*
+    This file is used for updating tickets.
+*/
 "use strict";
 
 var api = require("servicenow-lite");

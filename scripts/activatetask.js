@@ -29,39 +29,58 @@ module.exports = function(robot) {
                     response.send("Fetching data of task " + activeTask + " failed, please try again");
                 }
                 else {
+                    var sysClass = result['dv_sys_class_name'];
+                    console.log(sysClass);
+                    // Checks what tasks class is and sets state by it
+                    var state;
+                    switch (result['dv_sys_class_name']) {
+                        case 'Incident':
+                            state = result['dv_incident_state'];
+                            console.log(state);
+                            break;
+                        case 'Ticket':
+                            state = result['dv_state'];
+                            console.log(state);
+                            break;
+                        case 'Problem':
+                            state = result['dv_problem_state'];
+                            console.log(state);
+                            break;
+                        case 'Change Request':
+                            state = result['dv_state'];
+                            console.log(state);
+                            break;
+                        case 'Change Task':
+                            state = result['dv_state'];
+                            console.log(state);
+                            break;
+                        case 'Requested Item':
+                            state = result['dv_state'];
+                            console.log(state);
+                            break;
+                        case 'Project Task':
+                            state = result['dv_state'];
+                            console.log(state);
+                            break;
+                    }
                     var taskData = {
                         'short_description': result.short_description,
-                        'assigned_to': result.assigned_to
+                        'assigned_to': result.assigned_to,
+                        'description': result.description,
+                        'dv_assigned_to': result.dv_assigned_to,
+                        'dv_assignment_group': result.dv_assignment_group,
+                        'dv_sys_updated_on': result.dv_sys_updated_on
                     };
 
-                    var sysID = result.assigned_to;
-
-                    // Checks if assigned_to is empty
-                    if (taskData['assigned_to'].length === 0) {
+                    
                         console.log(JSON.stringify(taskData));
                         response.send(
-                            "Short description: " + taskData['short_description'] + "\n" + 
-                            "Assigned to: " + taskData['assigned_to'] + "\n" + "Link: " + link.urlDirect(activeTask)
+                            "Short description: " + taskData['short_description'] + "\n" + "Description: " + taskData['description'] + "\n" + 
+                            "Assigned to: " + taskData['assigned_to'] + "\n" + "Assignment group: " + taskData['dv_assignment_group'] + "\n" + "State: " + state + "\n" +  
+                            "Last updated on: " + taskData['dv_sys_updated_on'] + "\n" + "Link: " + link.urlDirect(activeTask)
                         );
                         response.send("Typical commands: assign to me, give comment, show comments, close task");
-                    }
-                    else {
-                        //If task is assigned to someone then call function that finds user by sys_id
-                        api.getUserByID(sysID, function(err, result) {
-                            if (err) {
-                                response.send("sys_id was not found, please try again");
-                                console.error(err);
-                                return;
-                            }
-                            else {
-                                response.send(
-                                    "Short description: " + taskData['short_description'] + "\n" + 
-                                    "Assigned to: " + result['name'] + "\n" + "Link: " + link.urlDirect(activeTask)
-                                );
-                                response.send("Typical commands: assign to me, give comment, show comments, close task");
-                            }
-                        });
-                    }
+                    
                     
                 }
             });

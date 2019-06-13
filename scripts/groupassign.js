@@ -1,3 +1,6 @@
+/*
+    This file is used to assigning ticket to group
+*/
 "use strict";
 
 var api = require("servicenow-lite");
@@ -35,6 +38,7 @@ module.exports = function(robot) {
                             return;
                                     }
                         else {
+                            // Sets params of field/fields what are going to be updated
                             updateParams = {
                                 'sys_id': result.sys_id,
                                 'assignment_group': group

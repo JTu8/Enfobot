@@ -1,5 +1,5 @@
-node_modules
-!node_modules/*/servicenow-lite
+node_modules/*
+!node_modules/servicenow-lite
 .DS_Store*
 .hubot_history
 # Ignore servicenow.yaml

@@ -22,13 +22,13 @@ module.exports = function (robot) {
                 return;
             }
             else {
-            
+                    // Sets params of field/fields what are going to be updated
                     updateParams = {
                         'sys_id': result.sys_id,
                         'work_notes': comment,
                     };
                     console.log("Params= " + JSON.stringify(updateParams));
-                    // Adds comment to ticket
+                    // Calls function that updates specified fields
                     update.updateTask(updateParams, ticketNumber, response);
                     response.send("Comments added to task " + ticketNumber);
                 
