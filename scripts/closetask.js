@@ -6,7 +6,7 @@ var close = require(path.resolve(__dirname, "./ticketupdate.js"));
 
 module.exports = function (robot) {
     robot.commands.push(
-        "Enfobot close task <tasknumber> - <comments>"
+        "Enfobot close task <tasknumber> - <close notes>"
     );
 
     robot.respond(/close task (.*) - (.*)/i, function(response) {

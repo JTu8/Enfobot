@@ -76,10 +76,10 @@ module.exports = function(robot) {
                         console.log(JSON.stringify(taskData));
                         response.send(
                             "Short description: " + taskData['short_description'] + "\n" + "Description: " + taskData['description'] + "\n" + 
-                            "Assigned to: " + taskData['assigned_to'] + "\n" + "Assignment group: " + taskData['dv_assignment_group'] + "\n" + "State: " + state + "\n" +  
+                            "Assigned to: " + taskData['dv_assigned_to'] + "\n" + "Assignment group: " + taskData['dv_assignment_group'] + "\n" + "State: " + state + "\n" +  
                             "Last updated on: " + taskData['dv_sys_updated_on'] + "\n" + "Link: " + link.urlDirect(activeTask)
                         );
-                        response.send("Typical commands: assign to me, give comment, show comments, close task");
+                        response.send("Typical commands: assign to me, give comment <comments>, show comments, close task <close notes>");
                     
                     
                 }
