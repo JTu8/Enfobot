@@ -32,8 +32,6 @@ module.exports = function (robot) {
                     update.updateTask(updateParams, ticketNumber, response);
                     response.send("Comments added to task " + ticketNumber);
                 
-                
-                
             }
         });
     });
