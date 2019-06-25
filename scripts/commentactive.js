@@ -10,7 +10,7 @@ module.exports = function(robot) {
     robot.respond(/give comment (.*)/i, function(response) {
         var comment = response.match[1];
 
-        //Gets saved task from memory
+        //Gets saved task from memory and checks if tasknumber is in the memory
         var taskNumber = robot.brain.get('task') || {};
         console.log(taskNumber);
 

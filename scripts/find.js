@@ -4,10 +4,9 @@ var api = require("servicenow-lite");
 
 module.exports = function (robot) {
     
-
+    // Searches data for ticket and gives you all the fields of searched ticket
     robot.respond(/find (.*)/i, function (response) {
         var taskNumber = response.match[1];
-        var searchResult;
         
         api.search(taskNumber, function(err, result) {
             if (err) {
@@ -16,9 +15,8 @@ module.exports = function (robot) {
             }
             else {
                 response.send("Your search results");
-                //response.send(JSON.stringify(result));
                 console.log(result);
-                //response.send(JSON.stringify(result));
+                response.send(JSON.stringify(result));
                 
             }
         }); 

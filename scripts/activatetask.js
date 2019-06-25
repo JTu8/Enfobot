@@ -17,7 +17,7 @@ module.exports = function(robot) {
         robot.brain.set('task', task);
 
         response.send(task + " is now active");
-
+        // Gets task from memory and checks if tasknumber is in the memory
         var activeTask = robot.brain.get('task') || {};
         if (robot.brain.get('task') == null) {
             response.send("No saved tasks");
@@ -63,6 +63,7 @@ module.exports = function(robot) {
                             console.log(state);
                             break;
                     }
+                    
                     var taskData = {
                         'short_description': result.short_description,
                         'assigned_to': result.assigned_to,
@@ -71,6 +72,7 @@ module.exports = function(robot) {
                         'dv_assignment_group': result.dv_assignment_group,
                         'dv_sys_updated_on': result.dv_sys_updated_on
                     };
+                    
 
                     
                         console.log(JSON.stringify(taskData));

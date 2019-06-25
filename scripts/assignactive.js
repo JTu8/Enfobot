@@ -15,7 +15,7 @@ module.exports = function(robot) {
         // Gets saved task from memory
         var savedTask = robot.brain.get('task') || {};
         console.log(savedTask);
-
+        // Check if user or tasknumber is in the memory
         if (robot.brain.get('user') == null || robot.brain.get('task') == null) {
             response.send("No saved users or tasks");
             response.send("Save user using command Enfobot save user <User> or assign user with command " + 

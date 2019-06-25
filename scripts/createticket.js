@@ -1,7 +1,6 @@
 "use strict";
 
 var api = require("servicenow-lite");
-var prettyjson = require("prettyjson");
 
 module.exports = function(robot) {
     robot.commands.push(

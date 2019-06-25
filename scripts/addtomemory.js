@@ -1,7 +1,5 @@
 "use strict";
 
-var underscore = require("underscore");
-
 // Add user to Enfobots memory
 module.exports = function(robot) {
     robot.commands.push(
@@ -64,6 +62,7 @@ module.exports = function(robot) {
         }   
     });
 
+    // Removes task from memory
     robot.respond(/forget/i, function (response) {
         robot.brain.remove('task');
         response.send("No active task number.");

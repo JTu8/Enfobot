@@ -4,7 +4,7 @@ var api = require("servicenow-lite");
 const path = require("path");
 var link = require(path.resolve(__dirname, "./link.js"));
 
-
+// Gets and prints data about ticket and link to ServiceNow instance 
 function getTicketData (taskNumber, response) {
     var taskNumber;
     var searchResult;

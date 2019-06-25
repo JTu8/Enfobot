@@ -26,7 +26,7 @@ module.exports = function (robot) {
             }
             else {
                     var sysClass = result['sys_class_name'];
-                    // Checks what is tasks class and updates incident_state
+                    // Checks tasks class and updates incident_state
                     switch (result['dv_sys_class_name']) {
                         case 'Incident':
                             closeParams = {

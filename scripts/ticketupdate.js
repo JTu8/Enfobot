@@ -1,10 +1,7 @@
-/*
-    This file is used for updating tickets.
-*/
 "use strict";
 
 var api = require("servicenow-lite");
-
+// All functions that are used to update fields if tasks uses this function 
 function updateTask(updateParams, ticketNumber, response) {
     
     // Updates ticket

@@ -1,7 +1,7 @@
 "use strict";
 
 var api = require("servicenow-lite");
-
+// Tests update function
 module.exports = function(robot) {
     robot.commands.push(
         "Enfobot update ticket <number> from <prefix> with <Short description> - Updates selected tickets short description field"

@@ -9,7 +9,7 @@ module.exports = function (robot) {
      robot.commands.push(
          "Enfobot assign <tasknumber> to person/group <person|group> - Assigns task to person or group"
      );
-
+    // Assigns ticket to selected person
      robot.respond(/assign (.*) to person (.*)/i, function(response) {
         var ticketNumber = response.match[1];
         var person = response.match[2];

@@ -2,7 +2,7 @@
   "name": "Enfobot",
   "version": "0.0.0",
   "private": true,
-  "author": "JTu8 <htmjaet8@gmail.com>",
+  "author": "JTu8 <htmjset8@gmail.com>",
   "description": "Hubot that communicates with ServiceNow",
   "dependencies": {
     "hubot": "^3.3.2",

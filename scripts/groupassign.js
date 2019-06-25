@@ -1,6 +1,3 @@
-/*
-    This file is used to assigning ticket to group
-*/
 "use strict";
 
 var api = require("servicenow-lite");
@@ -8,7 +5,7 @@ var path = require("path");
 var assign = require(path.resolve(__dirname, "./ticketupdate.js"));
 
 module.exports = function(robot) {
-
+    // Assigns ticket to selected group
     robot.respond(/assign (.*) to group (.*)/i, function(response) {
         var ticketNumber = response.match[1];
         var group = response.match[2];
