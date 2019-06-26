@@ -1,4 +1,4 @@
-root_url: https://enfosb.service-now.com
+
  
 # A list of servicenow tables that we're interested in. To find the 
 # name of a table, look carefully at URLs in servicenow's web API. If 
