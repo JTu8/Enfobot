@@ -33,7 +33,7 @@ module.exports = function (robot) {
                 response.send("Something went wrong");
             }
             else {
-                response.send("Username: " + result['name']);
+                response.send("Username: " + JSON.stringify(result));
                 console.log(JSON.stringify(result));
             }
         });

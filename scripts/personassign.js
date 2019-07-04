@@ -19,7 +19,7 @@ module.exports = function (robot) {
         
 
         // Get username by email
-        api.getUserByEmail(person, function(err, result) {
+        api.getUserName(person, function(err, result) {
             if (err) {
                 response.send("Something went wrong, please try again");
                 console.error(err);
@@ -30,9 +30,11 @@ module.exports = function (robot) {
                     response.send("User was not found, please try again");
                 }
                 else {
-                    // Gets sys_id of ticket 
-                    person = result['name'];
+                    person = result['sys_id'];
+                    // This is just used to print persons name
+                    var assignedTo = result['name'];
                     console.log("Person= " + person);
+                    // Gets sys_id of ticket 
                     api.getRecordById(ticketNumber, function(err, result) {
                         if (err) {
                             response.send("Task not found, please try again");
@@ -43,12 +45,13 @@ module.exports = function (robot) {
                             updateParams = {
                                 'sys_id': result.sys_id,
                                 'assigned_to': person,
+                                'dv_company': 'Enfo Oy'
                             };
                             console.log("Params= " + JSON.stringify(updateParams));
                             
                             // Calls function that updates assigned_to field 
                             assign.updateTask(updateParams, ticketNumber, response);
-                            response.send("Task " + ticketNumber +  " assigned to " + person);
+                            response.send("Task " + ticketNumber +  " assigned to " + assignedTo);
                             
                             
                         }
