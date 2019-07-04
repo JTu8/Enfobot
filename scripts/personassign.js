@@ -18,7 +18,7 @@ module.exports = function (robot) {
         console.log("Ticket number= " + ticketNumber);  
         
 
-        // Get username by email
+        // Get user by name
         api.getUserName(person, function(err, result) {
             if (err) {
                 response.send("Something went wrong, please try again");
@@ -30,6 +30,7 @@ module.exports = function (robot) {
                     response.send("User was not found, please try again");
                 }
                 else {
+                    // assign person variable to persons sys_id
                     person = result['sys_id'];
                     // This is just used to print persons name
                     var assignedTo = result['name'];
