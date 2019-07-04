@@ -3,4 +3,4 @@ node_modules/*
 .DS_Store*
 .hubot_history
 #Ignore serivcenow.yaml
-serivcenow.yaml
+servicenow.yaml

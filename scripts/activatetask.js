@@ -81,7 +81,7 @@ module.exports = function(robot) {
                             "Assigned to: " + taskData['dv_assigned_to'] + "\n" + "Assignment group: " + taskData['dv_assignment_group'] + "\n" + "State: " + state + "\n" +  
                             "Last updated on: " + taskData['dv_sys_updated_on'] + "\n" + "Link: " + link.urlDirect(activeTask)
                         );
-                        response.send("Typical commands: assign to me, give comment <comments>, show comments, close task <close notes>");
+                        response.send("Typical commands: assign to me, give comment <comments>, show comments, close active task <close notes>");
                     
                     
                 }

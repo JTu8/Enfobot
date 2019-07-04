@@ -6,7 +6,7 @@ var close = require(path.resolve(__dirname, "./ticketupdate.js"));
 
 module.exports = function (robot) {
     
-    robot.respond(/close task (.*)/i, function(response) {
+    robot.respond(/close active task (.*)/i, function(response) {
         var ticketNumber = robot.brain.get('task') || {};
         var closeComment = response.match[1];
         var closeParams;

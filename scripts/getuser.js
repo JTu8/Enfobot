@@ -25,6 +25,20 @@ module.exports = function (robot) {
         
     });
 
+    robot.respond(/get username by email (.*)/i, function(response) {
+        var email = response.match[1];
+
+        api.getUserByEmail(email, function(err, result) {
+            if (err) {
+                response.send("Something went wrong");
+            }
+            else {
+                response.send("Username: " + result['name']);
+                console.log(JSON.stringify(result));
+            }
+        });
+    });
+
     robot.respond(/get user data (.*)/i, function(response) {
         var userName = response.match[1];
 
