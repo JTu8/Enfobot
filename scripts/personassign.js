@@ -7,7 +7,7 @@ var assign = require(path.resolve(__dirname, "./ticketupdate.js"));
 module.exports = function (robot) {
     
      robot.commands.push(
-         "Enfobot assign <tasknumber> to person(email)/group <person(email)|group> - Assigns task to person or group. Remember to use email when assigning task to person"
+         "Enfobot assign <tasknumber> to person/group <person|group> - Assigns task to person or group."
      );
     // Assigns ticket to selected person
      robot.respond(/assign (.*) to person (.*)/i, function(response) {
