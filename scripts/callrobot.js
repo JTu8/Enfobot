@@ -13,8 +13,8 @@ module.exports = function(robot) {
         data = JSON.stringify(
             {
                 "tenancyName": "Default",
-	            "usernameOrEmailAddress": "MyEnfoUser",
-	            "password": "Y&87X#HCVsDJpKoOQA"
+	            "usernameOrEmailAddress": "",
+	            "password": ""
             }
         );
         console.log(data);
