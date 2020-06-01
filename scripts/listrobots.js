@@ -1,7 +1,7 @@
 "use strict";
 
-const authenticateUrl = "https://uiorc-test1.enfocode.fi/api/account/authenticate";
-const robotsUrl = "https://uiorc-test1.enfocode.fi/odata/Robots";
+const authenticateUrl = "";
+const robotsUrl = "";
 
 module.exports = function(robot) {
     robot.commands.push(
