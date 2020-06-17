@@ -1,6 +1,6 @@
 "use strict";
-
-const authenticateUrl = "";
+var fs = require('fs');
+var configPath = './config.json';
 
 module.exports = function(robot) {
     robot.commands.push(
@@ -9,12 +9,18 @@ module.exports = function(robot) {
 
     robot.respond(/authenticate to UiPath/i, function(response) {
 
+        var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+
+        const authenticateUrl = parsed.baseurl + "api/account/authenticate";
+
+        console.log(authenticateUrl);
+        
         var data;
         data = JSON.stringify(
             {
                 "tenancyName": "Default",
-	            "usernameOrEmailAddress": "",
-	            "password": ""
+	            "usernameOrEmailAddress": parsed.usernameOrEmailAddress,
+	            "password": parsed.password
             }
         );
         console.log(data);

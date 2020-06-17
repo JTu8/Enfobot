@@ -1,7 +1,8 @@
 "use strict";
+var fs = require('fs');
+var configPath = './config.json';
 
-const authenticateUrl = "";
-const robotsUrl = "";
+
 
 module.exports = function(robot) {
     robot.commands.push(
@@ -11,12 +12,17 @@ module.exports = function(robot) {
     
     robot.respond(/get all robots/i, function(response) {
 
+        var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+
+        const authenticateUrl = parsed.baseurl + "api/account/authenticate";
+        const robotsUrl = parsed.baseurl + "odata/Robots";
+
         var data;
         data = JSON.stringify(
             {
                 "tenancyName": "Default",
-	            "usernameOrEmailAddress": "",
-	            "password": ""
+	            "usernameOrEmailAddress": parsed.usernameOrEmailAddress,
+	            "password": parsed.password
             }
         );
         console.log(data);
@@ -29,19 +35,26 @@ module.exports = function(robot) {
             }
             else {
                 var token = JSON.parse(body);
-                console.log(token.result);
+                console.log('Bearer ' + token.result);
 
-                robot.http(robotsUrl).headers('Authorization', 'Bearer ' + token.result).get()(function(err, res, body) {
+                var auth = 'Bearer ' + token.result;
+
+                robot.http(robotsUrl).header('Authorization', auth).get()(function(err, res, body) {
                     if(res.statusCode !== 200) {
                         response.send("Error: " + err);
                         console.log("Error:" + err);
                         return;
                     }
                     else {
-                        console.log(JSON.parse(body));
                         var robots = JSON.parse(body);
-                        console.log(robots);
-                        response.send("All robots from Default tenant: " + robots);
+                        for (var i in robots.value) {
+                            var robotNames = robots.value[i].Name;
+                            response.send(robotNames);
+                        }
+
+                        
+                        
+                        
                     }
                 });
             }
