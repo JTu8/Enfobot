@@ -1,7 +1,4 @@
 "use strict";
-var fs = require('fs');
-var configPath = './config.json';
-
 
 
 module.exports = function(robot) {
@@ -12,17 +9,27 @@ module.exports = function(robot) {
     
     robot.respond(/get all robots/i, function(response) {
 
-        var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+        
+        const authenticateUrl = process.env.UIPATH_ORCH_URL + "api/account/authenticate";
+        const robotsUrl = process.env.UIPATH_ORCH_URL + "odata/Robots";
 
-        const authenticateUrl = parsed.baseurl + "api/account/authenticate";
-        const robotsUrl = parsed.baseurl + "odata/Robots";
+        var tenant = process.env.TENANT_NAME;
+        console.log(tenant);
+
+        var username = process.env.UIPATH_USERNAME;
+        console.log(username);
+
+        var password = process.env.UIPATH_PASSWORD;
+        console.log(password);
+
+
 
         var data;
         data = JSON.stringify(
             {
-                "tenancyName": "Default",
-	            "usernameOrEmailAddress": parsed.usernameOrEmailAddress,
-	            "password": parsed.password
+                "tenancyName": tenant,
+	            "usernameOrEmailAddress": username,
+	            "password": password
             }
         );
         console.log(data);
@@ -30,6 +37,7 @@ module.exports = function(robot) {
         robot.http(authenticateUrl).header('Content-Type', 'application/json').post(data)(function(err, res, body) {
             if(res.statusCode !== 200) {
                 response.send("Error: " + err);
+                response.send("Check that you have correct Environment Variables. Please look Readme.md for guidance");
                 console.log(err);
                 return;
             }
@@ -49,7 +57,8 @@ module.exports = function(robot) {
                         var robots = JSON.parse(body);
                         for (var i in robots.value) {
                             var robotNames = robots.value[i].Name;
-                            response.send(robotNames);
+                            var robotID = robots.value[i].Id;
+                            response.send("Robots name: " + robotNames + " and Robots ID: " + robotID);
                         }
 
                         

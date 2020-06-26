@@ -1,6 +1,4 @@
 "use strict";
-var fs = require('fs');
-var configPath = './config.json';
 
 module.exports = function(robot) {
     robot.commands.push(
@@ -10,18 +8,33 @@ module.exports = function(robot) {
     robot.respond(/fill this Excel for me (.*)/i, function(response) {
         var excelFile = response.match[1];
 
-        var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+        
 
-        const authenticateUrl = parsed.baseurl + "api/account/authenticate";
-        const jobStartUrl = parsed.baseurl + "odata/Jobs/UiPath.Server.Configuration.OData.StartJobs";
-        const getJobUrl = parsed.baseurl + "odata/Jobs/?&$filter=";
+        const authenticateUrl = process.env.UIPATH_ORCH_URL + "api/account/authenticate";
+        const jobStartUrl = process.env.UIPATH_ORCH_URL + "odata/Jobs/UiPath.Server.Configuration.OData.StartJobs";
+        const getJobUrl = process.env.UIPATH_ORCH_URL + "odata/Jobs/?&$filter=";
+
+        var tenant = process.env.TENANT_NAME;
+        console.log(tenant);
+
+        var username = process.env.UIPATH_USERNAME;
+        console.log(username);
+
+        var password = process.env.UIPATH_PASSWORD;
+        console.log(password);
+
+        var robotID = process.env.UIPATH_ROBOTID;
+        console.log(robotID);
+
+       var parsedID = parseInt(robotID);
+
 
         var data;
         data = JSON.stringify(
             {
-                "tenancyName": "Default",
-	            "usernameOrEmailAddress": parsed.usernameOrEmailAddress,
-	            "password": parsed.password
+                "tenancyName": tenant,
+	            "usernameOrEmailAddress": username,
+	            "password": password
             }
         );
         console.log(data);
@@ -44,7 +57,7 @@ module.exports = function(robot) {
                         "startInfo": {
                             "ReleaseKey": "27120fa6-fb25-4a64-b804-f67db42b07ee",
                             "Strategy": "Specific",
-                            "RobotIds": [ 9 ],
+                            "RobotIds": [ parsedID ],
                             "NoOfRobots": 0,
                             "Source": "Manual",
                             "InputArguments": "{\"Workbook\":\"" + excelFile + "\"}"

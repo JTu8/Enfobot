@@ -1,6 +1,4 @@
 "use strict";
-var fs = require('fs');
-var configPath = './config.json';
 
 
 module.exports = function(robot) {
@@ -12,21 +10,29 @@ module.exports = function(robot) {
         var job = response.match[1];
         var robotName = response.match[2];
 
-        var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+        const authenticateUrl = process.env.UIPATH_ORCH_URL + "api/account/authenticate";
+        const robotsUrl = process.env.UIPATH_ORCH_URL + "odata/Robots";
+        const releasesUrl = process.env.UIPATH_ORCH_URL + "odata/Releases";
+        const jobStartUrl = process.env.UIPATH_ORCH_URL + "odata/Jobs/UiPath.Server.Configuration.OData.StartJobs";
+        const getJobUrl = process.env.UIPATH_ORCH_URL + "odata/Jobs/?&$filter=";
+        
+        
+        var tenant = process.env.TENANT_NAME;
+        console.log(tenant);
 
-        const authenticateUrl = parsed.baseurl + "api/account/authenticate";
-        const robotsUrl = parsed.baseurl + "odata/Robots";
-        const releasesUrl = parsed.baseurl + "odata/Releases";
-        const jobStartUrl = parsed.baseurl + "odata/Jobs/UiPath.Server.Configuration.OData.StartJobs";
-        const getJobUrl = parsed.baseurl + "odata/Jobs/?&$filter=";
+        var username = process.env.UIPATH_USERNAME;
+        console.log(username);
+
+        var password = process.env.UIPATH_PASSWORD;
+        console.log(password);
 
 
         var data;
         data = JSON.stringify(
             {
-                "tenancyName": "Default",
-	            "usernameOrEmailAddress": parsed.usernameOrEmailAddress,
-	            "password": parsed.password
+                "tenancyName": tenant,
+	            "usernameOrEmailAddress": username,
+	            "password": password
             }
         );
         console.log(data);
