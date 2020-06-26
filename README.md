@@ -6,7 +6,7 @@ You need to set following Environment Variables:
     UIPATH_PASSWORD="UiPath users password"
     UIPATH_USERNAME="UiPath users username"
     TENANT_NAME="Tenant you wish to authenticate"
-    UIPATH_ROBOTID="Robots ID you wish to start"
+    UIPATH_ROBOTID="Robots ID"
     
 Commands:
     
