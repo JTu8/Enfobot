@@ -4,3 +4,6 @@ node_modules/*
 .hubot_history
 #Ignore serivcenow.yaml
 servicenow.yaml
+config.json
+Dockerfile
+docker-compose.yaml

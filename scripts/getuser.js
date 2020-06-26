@@ -78,5 +78,19 @@ module.exports = function (robot) {
         }); 
     });
 
+    robot.respond(/created by user (.*)/i, function(response) {
+        var creator = response.match[1];
+
+        api.recordsCreatedBy(creator, function(err, result) {
+            if (err) {
+                response.send("Something went wrong");
+            }
+            else {
+                response.send("Created: " + JSON.stringify(result));
+                console.log(JSON.stringify(result));
+            }
+        });
+    });
+
     
 };

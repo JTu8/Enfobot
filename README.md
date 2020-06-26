@@ -1,3 +1,20 @@
+# UIpathin kutsuminen
+
+You need to set following Environment Variables:
+  
+    UIPATH_ORCH_URL="Url to the orchestrator"
+    UIPATH_PASSWORD="UiPath users password"
+    UIPATH_USERNAME="UiPath users username"
+    TENANT_NAME="Tenant you wish to authenticate"
+    UIPATH_ROBOTID="Robots ID"
+    
+Commands:
+    
+    Enfobot fill this Excel for me <Excel filename without extension> - Fills selected offer Excel
+    Enfobot get all robots - Prints info about all robots
+    Enfobot start job <job name> with robot <robot name> - Starts specified job with specified robot
+    
+
 # Enfobot
 
 Enfobot is a chat bot built on the [Hubot][hubot] framework. It was
