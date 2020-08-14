@@ -1,17 +1,14 @@
 "use strict";
 
-
 module.exports = function(robot) {
     robot.commands.push(
-        "Enfobot get all robots - Prints info about all robots"
+        "Enfobot get all processes - Prints all processes"
     );
 
-    
-    robot.respond(/get all robots/i, function(response) {
+    robot.respond(/get all processes/i, function(response) {
 
-        
         const authenticateUrl = process.env.UIPATH_ORCH_URL + "api/account/authenticate";
-        const robotsUrl = process.env.UIPATH_ORCH_URL + "odata/Robots";
+        const releasesUrl = process.env.UIPATH_ORCH_URL + "odata/Releases";
 
         var tenant = process.env.TENANT_NAME;
         console.log(tenant);
@@ -21,8 +18,6 @@ module.exports = function(robot) {
 
         var password = process.env.UIPATH_PASSWORD;
         console.log(password);
-
-
 
         var data;
         data = JSON.stringify(
@@ -47,33 +42,28 @@ module.exports = function(robot) {
 
                 var auth = 'Bearer ' + token.result;
 
-                robot.http(robotsUrl).header('Authorization', auth).get()(function(err, res, body) {
+                robot.http(releasesUrl).header('Authorization', auth).get()(function(err, res, body) {
                     if(res.statusCode !== 200) {
                         response.send("Error: " + err);
                         console.log("Error:" + err);
                         return;
                     }
                     else {
-                        var robots = [];
-                        robots = JSON.parse(body);
-                        console.log(robots);
-                        
-                        robots.value.map(item => {
-                            console.log("Robots: " + item.Name);
-                            console.log("ID:"  + item.Id);
-                            console.log("Machine host name: " + item.MachineName);
-                            response.send("Robots name: " + item.Name + "\n" + "Robots Id: " + item.Id + "\n" + "Machine hostname: " + item.MachineName);
+                        var processes = [];
+                        processes = JSON.parse(body);
+                        console.log(processes);
+
+                         processes.value.map(item => {
+                            console.log("Prosessit: " + item.ProcessKey);
+                            response.send(item.ProcessKey);
                         });
-
-
+                       
+                    
                         
                     }
                 });
             }
         });
 
-        
-
     });
-
 };
