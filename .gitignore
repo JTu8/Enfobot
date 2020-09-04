@@ -7,3 +7,4 @@ servicenow.yaml
 config.json
 Dockerfile
 docker-compose.yaml
+settings.cmd

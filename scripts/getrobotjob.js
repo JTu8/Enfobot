@@ -59,6 +59,7 @@ module.exports = function(robot) {
                         console.log("Job Environment name: " + release.value[0].EnvironmentName);
                         var releaseKey = release.value[0].ProcessKey;
                         var environmentName = release.value[0].EnvironmentName;
+                        var id = release.value[0].Id;
                         var releaseName = releaseKey + "_" + environmentName;
                         console.log("Job release name: " + releaseName);
 
@@ -70,7 +71,7 @@ module.exports = function(robot) {
                             }
                             else {
                                 var jobStatus = JSON.parse(body);
-
+                                console.log(jobStatus);
                                 for (var i in jobStatus.value) {
                                     var startTime = jobStatus.value[i].StartTime;
                                     var endTime = jobStatus.value[i].EndTime;
@@ -80,13 +81,33 @@ module.exports = function(robot) {
                                     var outPutArguments = jobStatus.value[i].OutputArguments;
                                 }
 
-                                response.send("Status for job " + job + "\n" + 
-                                    "Start time: " + startTime + "\n" + 
-                                    "End time: " + endTime + "\n" + 
-                                    "State: " + state + "\n" + 
-                                    "Info: " + info + "\n" + 
-                                    "Input arguments: " + inputArguments + "\n" + 
-                                    "Output arguments: " + outPutArguments);
+                                
+                               response.send({
+                                "attachments": [
+                                    {
+                                        "blocks": [
+                                            {
+                                                "type": "header",
+                                                "text": {
+                                                    "type": "plain_text",
+                                                    "text": "Status for job : " + job 
+                                                }
+                                            },
+                                            {
+                                                "type": "section",
+                                                "text": {
+                                                    "type": "mrkdwn",
+                                                    "text": "<" + process.env.UIPATH_ORCH_URL + "monitoring/jobs/" + id + "|Jobs data>" + "\n" + 
+                                                            ":desktop_computer:" + "\n" + 
+                                                            "*Start time:* " + startTime + "\n" + "*End time:* " + endTime + "\n" + 
+                                                            "*State:* " + state + "\n" + "*Info:* " + info + "\n" + "*Input arguments:* " + inputArguments + "\n" + 
+                                                            "*Output arguments:* " + outPutArguments
+                                                }
+                                            }
+                                            
+                                        ]
+                                    }]
+                                });
                             }
                         });
                     }

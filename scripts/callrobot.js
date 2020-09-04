@@ -1,7 +1,6 @@
 "use strict";
-var fs = require('fs');
-var configPath = './config.json';
 
+//This tests authenticating method
 module.exports = function(robot) {
     robot.commands.push(
         "Enfobot authenticate to UiPath - Authenticates to UiPath Orchestrator"

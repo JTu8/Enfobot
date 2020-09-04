@@ -16,9 +16,18 @@ module.exports = function(robot) {
         const jobStartUrl = process.env.UIPATH_ORCH_URL + "odata/Jobs/UiPath.Server.Configuration.OData.StartJobs";
         const getJobUrl = process.env.UIPATH_ORCH_URL + "odata/Jobs/?&$filter=";
         
+        //Checks robots memory for tenant
+        if(robot.brain.get('tenant') == null) {
+            //If memory is empty tenant variable is set from Environment variable
+            var tenant = process.env.TENANT_NAME;
+            console.log(tenant);
+        }
+        else {
+            tenant = robot.brain.get(tenant);
+            console.log(tenant);
+        }
         
-        var tenant = process.env.TENANT_NAME;
-        console.log(tenant);
+        
 
         var username = process.env.UIPATH_USERNAME;
         console.log(username);
