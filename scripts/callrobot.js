@@ -6,6 +6,7 @@ module.exports = function(robot) {
         "Enfobot authenticate to UiPath - Authenticates to UiPath Orchestrator"
     );
 
+    //Tähän cloud kutsu
     robot.respond(/authenticate to UiPath/i, function(response) {
 
         var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
