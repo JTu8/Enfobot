@@ -9,19 +9,18 @@ module.exports = function(robot) {
     //Tähän cloud kutsu
     robot.respond(/authenticate to UiPath/i, function(response) {
 
-        var parsed = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+        console.log("test");
 
-        const authenticateUrl = parsed.baseurl + "api/account/authenticate";
+        /*
 
-        console.log(authenticateUrl);
-
+        const authenticateUrl = process.env.AUTH_URL;
         
         var data;
         data = JSON.stringify(
             {
-                "tenancyName": "Default",
-	            "usernameOrEmailAddress": parsed.usernameOrEmailAddress,
-	            "password": parsed.password
+                "grant_type": "refresh_token",
+	            "client_id": process.env.CLIENT_ID,
+	            "refresh_token": process.env.REFRESH_TOKEN
             }
         );
         console.log(data);
@@ -35,14 +34,18 @@ module.exports = function(robot) {
             else {
                 console.log(JSON.parse(body));
                 var token = JSON.parse(body);
+                console.log(token);
+                
                 console.log(token.result);
                 response.send("Bearer token is: " + token.result);
                 response.send("Remember that bearer token expires after 30 minutes!");
                 
+                
             }
+        
         });
 
-
+*/
         
 
     });

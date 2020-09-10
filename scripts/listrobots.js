@@ -1,5 +1,6 @@
 "use strict";
 
+
 //Lists all robots from selected tenant
 module.exports = function(robot) {
     robot.commands.push(
@@ -9,123 +10,85 @@ module.exports = function(robot) {
     
     robot.respond(/get all robots/i, function(response) {
 
-        
-        const authenticateUrl = process.env.UIPATH_ORCH_URL + "api/account/authenticate";
+        //Gets necessary environment variables
+        var accessToken = process.env['ACCESS_TOKEN'];
         const robotsUrl = process.env.UIPATH_ORCH_URL + "odata/Robots";
         const availableUrl = process.env.UIPATH_ORCH_URL + "odata/Sessions?$filter=";
+        const tenantName = process.env.X_UIPATH_TenantName;
+        const organizaionIDUnit = process.env.X_UIPATH_OrganizationUnitId;
 
-        //Checks robots memory for tenant
-        if(robot.brain.get('tenant') == null) {
-            var tenant = process.env.TENANT_NAME;
-            console.log(tenant);
-        }
-        else {
-            tenant = robot.brain.get('tenant');
-            console.log(tenant);
-        }
+        console.log(robotsUrl);
 
         
-        var username = process.env.UIPATH_USERNAME;
-        console.log(username);
+        robot.http(robotsUrl).headers({'Authorization': 'bearer '+ accessToken, 'X-UIPATH-TenantName': tenantName, 'X-UIPATH-OrganizationUnitId': organizaionIDUnit}).get()(function(err, res, body) {
+        if(res.statusCode !== 200) {
+            response.send("Something went wrong");
+            console.log("Error:" + err);
+            return;
+        }
+        else {
+            var robots = [];
+            robots = JSON.parse(body);
+            console.log(robots);
+            
+            response.send("Robots data and availability");
+            
+            robots.value.map(item => {
+                console.log("Robots: " + item.Name);
+                console.log("ID:"  + item.Id);
 
-        var password = process.env.UIPATH_PASSWORD;
-        console.log(password);
-
-
-
-        var data;
-        data = JSON.stringify(
-            {
-                "tenancyName": tenant,
-	            "usernameOrEmailAddress": username,
-	            "password": password
-            }
-        );
-        console.log(data);
-
-        robot.http(authenticateUrl).header('Content-Type', 'application/json').post(data)(function(err, res, body) {
-            if(res.statusCode !== 200) {
-                response.send("Something went wrong while authenticating.");
-                console.log(err);
-                return;
-            }
-            else {
-                var token = JSON.parse(body);
-                console.log('Bearer ' + token.result);
-
-                var auth = 'Bearer ' + token.result;
-
-                robot.http(robotsUrl).header('Authorization', auth).get()(function(err, res, body) {
+                robot.http(availableUrl + 'Robot/Id eq ' + item.Id).headers({'Authorization': 'bearer '+ accessToken, 'X-UIPATH-TenantName': tenantName, 'X-UIPATH-OrganizationUnitId': organizaionIDUnit}).get()(function(err, res, body) {
                     if(res.statusCode !== 200) {
-                        response.send("Error: " + err);
-                        console.log("Error:" + err);
+                        response.send("Something went wrong");
+                        console.log("Error:" + body);
                         return;
                     }
                     else {
-                        var robots = [];
-                        robots = JSON.parse(body);
-                        console.log(robots);
-                        
-                        response.send("All robots from tenant: " + tenant);
+                        var robotStatus = JSON.parse(body);
 
-                        robots.value.map(item => {
-                            console.log("Robots: " + item.Name);
-                            console.log("ID:"  + item.Id);
+                        for(var i in robotStatus.value) {
+                            var state = robotStatus.value[i].State;
+                        }
+                        console.log(state);
 
-                            robot.http(availableUrl + 'Id eq ' + item.Id).header('Authorization', auth).get()(function(err, res, body) {
-                                if(res.statusCode !== 200) {
-                                    response.send("Error: " + err);
-                                    console.log("Error:" + err);
-                                    return;
-                                }
-                                else {
-                                    var robotStatus = JSON.parse(body);
-
-                                    for(var i in robotStatus.value) {
-                                        var state = robotStatus.value[i].State;
-                                    }
-                                    console.log(state);
-
-                                    response.send({
-                                        "attachments": [
-                                            {
-                                                "blocks": [
-                                                    {
-                                                        "type": "header",
-                                                        "text": {
-                                                            "type": "plain_text",
-                                                            "text": ":robot_face:"
-                                                        }
-                                                    },
-                                                    {
-                                                        "type": "section",
-                                                        "text": {
-                                                            "type": "mrkdwn",
-                                                            "text": "<" + process.env.UIPATH_ORCH_URL + "monitoring/robots/" + item.Id + "|Robots data>" + "\n" +
-                                                                    "*Robot name :* " + item.Name + "\n" + "*ID :* " + item.Id + "\n" + "*Type :* " + item.Type + 
-                                                                    "\n" + "*Environment :* " + item.RobotEnvironments + "\n" + "*State: * " + state 
-                                                             
-                                                        }
-                                                    }
+                        response.send({
+                            "attachments": [
+                                {
+                                    "blocks": [
+                                        {
+                                            "type": "header",
+                                            "text": {
+                                                "type": "plain_text",
+                                                "text": ":robot_face:"
+                                            }
+                                        },
+                                        {
+                                            "type": "section",
+                                            "text": {
+                                                "type": "mrkdwn",
+                                                "text": "<" + process.env.UIPATH_ORCH_URL + "monitoring/robots/" + item.Id + "|Robots data>" + "\n" +
+                                                        "*Robot name :* " + item.Name + "\n" + "*ID :* " + item.Id + "\n" + "*Type :* " + item.Type + 
+                                                        "\n" + "*Environment :* " + item.RobotEnvironments + "\n" + "*State: * " + state
                                                     
+                                            }
+                                        }
+                                        
         
-                                                ]
-                                            }]
-                                    });
-                                }
-                            });
-
-                            
+                                    ]
+                                }]
                         });
-
-
                         
                     }
                 });
-            }
-        });
 
-        
+                
+            });
+
+
+         
+        }
+    });
+         
 
     });
 
