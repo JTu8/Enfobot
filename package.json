@@ -28,7 +28,7 @@
     "servicenow-lite": "^1.1.0",
     "servicenow-rest": "^1.2.2",
     "uglify-js": "^3.9.4",
-    "underscore": "^1.10.2",
+    "underscore": "^1.12.1",
     "underscore.string": "^3.3.5",
     "ws": "^7.3.0"
   },
