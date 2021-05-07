@@ -5,6 +5,7 @@
   "author": "JTu8 <htmjset8@gmail.com>",
   "description": "Hubot that communicates with ServiceNow",
   "dependencies": {
+    "axios": "^0.20.0",
     "ejs": "^2.7.4",
     "hubot": "^3.3.2",
     "hubot-diagnostics": "^1.0.0",
@@ -30,7 +31,7 @@
     "uglify-js": "^3.9.4",
     "underscore": "^1.12.1",
     "underscore.string": "^3.3.5",
-    "ws": "^7.3.0"
+    "ws": "^7.3.1"
   },
   "engines": {
     "node": "0.10.x"
