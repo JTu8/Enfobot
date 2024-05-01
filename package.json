@@ -5,7 +5,7 @@
   "author": "JTu8 <htmjset8@gmail.com>",
   "description": "Hubot that communicates with ServiceNow",
   "dependencies": {
-    "ejs": "^3.1.7",
+    "ejs": "^3.1.10",
     "hubot": "^3.3.2",
     "hubot-diagnostics": "^1.0.0",
     "hubot-google-images": "^0.2.7",
