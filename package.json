@@ -30,7 +30,7 @@
     "uglify-js": "^3.9.4",
     "underscore": "^1.12.1",
     "underscore.string": "^3.3.5",
-    "ws": "^7.4.6"
+    "ws": "^7.5.10"
   },
   "engines": {
     "node": "0.10.x"
